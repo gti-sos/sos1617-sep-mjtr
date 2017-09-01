@@ -947,7 +947,24 @@ module.exports.getDataNameYear = function(req, res) {
     var nombre = req.params.name;
     var year = req.params.year;
     var aux = [];
+    var key = req.query.apikey;
 
+    if (!key || key == null) {
+
+        /******################################## KEY SECTION 1 ################################### ****/
+
+        console.log("get un recurso en concreto por nombre y año Key section 1 error");
+        res.sendStatus(401); //No ha introducido ninguna apikey
+
+    }
+    else if (key != apikey) {
+
+        /******################################## KEY SECTION 2 ################################### ****/
+
+        console.log("get un recurso en concreto por nombre y año Key section 2 error");
+        res.sendStatus(403); //La apikey introducida es incorrecta
+    }
+    else {
     if (!nombre || !year) {
 
         console.log("BAD Request,try again with new data");
@@ -968,26 +985,25 @@ module.exports.getDataNameYear = function(req, res) {
 
                 for (var j = 0; j < conjunto.length; j++) {
 
-                    var helpp = conjunto[j];
                     if (isNaN(nombre) && isNaN(parseInt(year)) === false) {
-                        if (helpp.country == nombre && helpp.year == parseInt(year)) {
-                            aux.push(helpp);
+                        if (conjunto[j].country === nombre && conjunto[j].year == parseInt(year)) {
+                            aux.push(conjunto[j]);
 
                         }
 
                     }
                 }
 
-                if (aux.length === 0) {
+                if (!aux || aux == [] || aux.length === 0) {
                     res.sendStatus(404);
-                }
+                }else{
                 res.send(aux);
 
             }
-
+}
         });
     }
-
+}
 };
 
 
