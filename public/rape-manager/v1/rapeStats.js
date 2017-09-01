@@ -28,7 +28,7 @@ mongoClient.connect(mongoURL, { native_parser: true }, (error, database) => {
 
 /**************************LOAD INITIAL DATA ****************/
 
-module.exports.getCreateData =(req, res) => {
+module.exports.getCreateData = (req, res) => {
     var key = req.query.apikey;
 
     if (!key || key == null) {
@@ -132,7 +132,7 @@ module.exports.getCreateData =(req, res) => {
                             "rate": 2.2
                         }, {
                             "country": "portugal",
-                            "year": 2010,
+                            "year": 2008,
                             "numberOfRape": 392,
                             "rate": 3.7
                         }, {
@@ -172,6 +172,8 @@ module.exports.getAllData = (req, res) => {
     offset = parseInt(req.query.offset);
     from = req.query.from;
     to = req.query.to;
+    var auxFrom = [];
+    var auxTo = [];
 
     if (!key || key == null) {
 
@@ -220,13 +222,136 @@ module.exports.getAllData = (req, res) => {
                             res.sendStatus(404);
                         }
 
-                        console.log("Mostrando los datos por consola: ")
-                        console.log("INFO: Sending contacts: " + JSON.stringify(data, 2, null));
 
-                        /**NOS FALTA COMPROBAR EL FROM Y EL TO***/
+                        /**##################BÚSQUEDAS########################**/
 
-                        res.send(data);
+                        /**Si solamente ponemos el from**/
 
+
+                        if (from && !to) {
+                            console.log("Hay from y no hay to");
+
+                            if (!isNaN(from)) {
+                                console.log("Hay from y no hay to, y from es un año");
+
+                                /**Si es un año lo que le pasamos al from***/
+
+                                for (var k = 0; k < data.length; k++) {
+
+                                    if (data[k].year === from) {
+                                        for (var j = k; j < data.length; j++) {
+                                            auxFrom.push(data[j]);
+                                        }
+                                        break;
+                                    }
+
+                                }
+                            }
+                            else if (isNaN(from)) {
+                                console.log("Hay from y no hay to, y from es un pais");
+                                /*Si el from en vez de ser un año es el país*/
+                                for (var k = 0; k < data.length; k++) {
+
+                                    if (data[k].country === from) {
+                                        for (var j = k; j < data.length; j++) {
+                                            auxFrom.push(data[j]);
+                                        }
+                                        break;
+                                    }
+
+                                }
+
+
+                            }
+                            res.send(auxFrom);
+                        }
+
+                        /**Si solamente ponemos el to***/
+
+                        else if (to && !from) {
+                            console.log("Hemos entrado en el To y no hay from");
+
+                            if (!isNaN(to)) {
+                                console.log("El to es un año");
+                                /**Si es un año lo que le pasamos al to***/
+
+                                for (var k = 0; k < data.length; k++) {
+
+                                    if (data[k].year === to) {
+                                        /**El TO es el límite,luego tenemos que poner todos los anteriores**/
+                                        for (var j = k; j >= 0; j--) {
+                                            auxTo.push(data[j]);
+                                        }
+                                        break;
+                                    }
+
+                                }
+                                res.send(auxTo);
+                            }
+                            else if (isNaN(to)) {
+                                console.log("el to es un país");
+                                /*Si el to en vez de ser un año es el país*/
+                                for (var k = 0; k < data.length; k++) {
+
+                                    if (data[k].country === to) {
+                                        for (var j = k; j >= 0; j--) {
+                                            auxTo.push(data[j]);
+                                        }
+                                        break;
+                                    }
+
+                                }
+                                res.send(auxTo);
+
+                            }
+
+
+                        }
+                        else if (from && to) {
+                            console.log("Hay from y to");
+                            /**Comprobamos que los dos sean años**/
+
+                            if (!isNaN(from) && !isNaN(to)) {
+
+                                console.log("From y to en el que los dos son años");
+
+                                for (var j = 0; j < data.length; j++) {
+                                    //Si está comprendido entre el from y el to 
+                                    if (data[j].year >= from && data[j].year <= to) {
+                                        aux.push(data[j]);
+
+                                    }
+                                }
+                                res.send(aux);
+                            }
+                            else if (isNaN(from) && isNaN(to)) {
+
+                                console.log("From y to en el que los dos son países");
+
+                                for (var j = 0; j < data.length; j++) {
+                                    //Si está comprendido entre el from y el to 
+                                    if (data[j].country == from) {
+                                        for (var k = j; k < data.length; k++) {
+                                            aux.push(data[k]);
+                                            if (data[k].country === to) {
+                                                break;
+                                            }
+                                        }
+                                        break;
+                                    }
+                                }
+
+                            }
+
+                            res.send(aux);
+
+                        }
+                        else {
+
+                            console.log("mostrando los datos con limit y offset ");
+                            console.log("INFO: Sending contacts: " + JSON.stringify(data, 2, null));
+                            res.send(data);
+                        }
                     }
                 });
 
@@ -255,10 +380,134 @@ module.exports.getAllData = (req, res) => {
                                 res.sendStatus(404);
                             }
                             /**NOS FALTA COMPROBAR EL FROM Y EL TO***/
+                            /**Si solamente ponemos el from**/
 
-                            console.log("mostrando los datos con limit y offset ");
-                            console.log("INFO: Sending contacts: " + JSON.stringify(data, 2, null));
-                            res.send(data);
+
+                            if (from && !to) {
+                                console.log("Hay from y no hay to");
+
+                                if (!isNaN(from)) {
+                                    console.log("Hay from y no hay to, y from es un año");
+
+                                    /**Si es un año lo que le pasamos al from***/
+
+                                    for (var k = 0; k < data.length; k++) {
+
+                                        if (data[k].year === from) {
+                                            for (var j = k; j < data.length; j++) {
+                                                auxFrom.push(data[j]);
+                                            }
+                                            break;
+                                        }
+
+                                    }
+                                }
+                                else if (isNaN(from)) {
+                                    console.log("Hay from y no hay to, y from es un pais");
+                                    /*Si el from en vez de ser un año es el país*/
+                                    for (var k = 0; k < data.length; k++) {
+
+                                        if (data[k].country === from) {
+                                            for (var j = k; j < data.length; j++) {
+                                                auxFrom.push(data[j]);
+                                            }
+                                            break;
+                                        }
+
+                                    }
+
+
+                                }
+                                res.send(auxFrom);
+                            }
+
+                            /**Si solamente ponemos el to***/
+
+                            else if (to && !from) {
+                                console.log("Hemos entrado en el To y no hay from");
+
+                                if (!isNaN(to)) {
+                                    console.log("El to es un año");
+                                    /**Si es un año lo que le pasamos al to***/
+
+                                    for (var k = 0; k < data.length; k++) {
+
+                                        if (data[k].year === to) {
+                                            /**El TO es el límite,luego tenemos que poner todos los anteriores**/
+                                            for (var j = k; j >= 0; j--) {
+                                                auxTo.push(data[j]);
+                                            }
+                                            break;
+                                        }
+
+                                    }
+                                    res.send(auxTo);
+                                }
+                                else if (isNaN(to)) {
+                                    console.log("el to es un país");
+                                    /*Si el to en vez de ser un año es el país*/
+                                    for (var k = 0; k < data.length; k++) {
+
+                                        if (data[k].country === to) {
+                                            for (var j = k; j >= 0; j--) {
+                                                auxTo.push(data[j]);
+                                            }
+                                            break;
+                                        }
+
+                                    }
+                                    res.send(auxTo);
+
+                                }
+
+
+                            }
+                            else if (from && to) {
+                                console.log("Hay from y to");
+                                /**Comprobamos que los dos sean años**/
+
+                                if (!isNaN(from) && !isNaN(to)) {
+
+                                    console.log("From y to en el que los dos son años");
+
+                                    for (var j = 0; j < data.length; j++) {
+                                        //Si está comprendido entre el from y el to 
+                                        if (data[j].year >= from && data[j].year <= to) {
+                                            aux.push(data[j]);
+
+                                        }
+                                    }
+                                    res.send(aux);
+                                }
+                                else if (isNaN(from) && isNaN(to)) {
+
+                                    console.log("From y to en el que los dos son países");
+
+                                    for (var j = 0; j < data.length; j++) {
+                                        //Si está comprendido entre el from y el to 
+                                        if (data[j].country == from) {
+                                            for (var k = j; k < data.length; k++) {
+                                                aux.push(data[k]);
+                                                if (data[k].country === to) {
+                                                    break;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+
+                                }
+
+                                res.send(aux);
+
+                            }
+                            else {
+
+                                console.log("mostrando los datos con limit y offset ");
+                                console.log("INFO: Sending contacts: " + JSON.stringify(data, 2, null));
+                                res.send(data);
+                            }
+
 
                         }
                     });
@@ -292,11 +541,135 @@ module.exports.getAllData = (req, res) => {
                                 console.log("section 5 get all data error, no hay datos en la base de datos");
                                 res.sendStatus(404);
                             }
-                            /**NOS FALTA COMPROBAR EL FROM Y EL TO***/
+                            /**##################BÚSQUEDAS########################**/
+
+                        /**Si solamente ponemos el from**/
+
+
+                        if (from && !to) {
+                            console.log("Hay from y no hay to");
+
+                            if (!isNaN(from)) {
+                                console.log("Hay from y no hay to, y from es un año");
+
+                                /**Si es un año lo que le pasamos al from***/
+
+                                for (var k = 0; k < data.length; k++) {
+
+                                    if (data[k].year === from) {
+                                        for (var j = k; j < data.length; j++) {
+                                            auxFrom.push(data[j]);
+                                        }
+                                        break;
+                                    }
+
+                                }
+                            }
+                            else if (isNaN(from)) {
+                                console.log("Hay from y no hay to, y from es un pais");
+                                /*Si el from en vez de ser un año es el país*/
+                                for (var k = 0; k < data.length; k++) {
+
+                                    if (data[k].country === from) {
+                                        for (var j = k; j < data.length; j++) {
+                                            auxFrom.push(data[j]);
+                                        }
+                                        break;
+                                    }
+
+                                }
+
+
+                            }
+                            res.send(auxFrom);
+                        }
+
+                        /**Si solamente ponemos el to***/
+
+                        else if (to && !from) {
+                            console.log("Hemos entrado en el To y no hay from");
+
+                            if (!isNaN(to)) {
+                                console.log("El to es un año");
+                                /**Si es un año lo que le pasamos al to***/
+
+                                for (var k = 0; k < data.length; k++) {
+
+                                    if (data[k].year === to) {
+                                        /**El TO es el límite,luego tenemos que poner todos los anteriores**/
+                                        for (var j = k; j >= 0; j--) {
+                                            auxTo.push(data[j]);
+                                        }
+                                        break;
+                                    }
+
+                                }
+                                res.send(auxTo);
+                            }
+                            else if (isNaN(to)) {
+                                console.log("el to es un país");
+                                /*Si el to en vez de ser un año es el país*/
+                                for (var k = 0; k < data.length; k++) {
+
+                                    if (data[k].country === to) {
+                                        for (var j = k; j >= 0; j--) {
+                                            auxTo.push(data[j]);
+                                        }
+                                        break;
+                                    }
+
+                                }
+                                res.send(auxTo);
+
+                            }
+
+
+                        }
+                        else if (from && to) {
+                            console.log("Hay from y to");
+                            /**Comprobamos que los dos sean años**/
+
+                            if (!isNaN(from) && !isNaN(to)) {
+
+                                console.log("From y to en el que los dos son años");
+
+                                for (var j = 0; j < data.length; j++) {
+                                    //Si está comprendido entre el from y el to 
+                                    if (data[j].year >= from && data[j].year <= to) {
+                                        aux.push(data[j]);
+
+                                    }
+                                }
+                                res.send(aux);
+                            }
+                            else if (isNaN(from) && isNaN(to)) {
+
+                                console.log("From y to en el que los dos son países");
+
+                                for (var j = 0; j < data.length; j++) {
+                                    //Si está comprendido entre el from y el to 
+                                    if (data[j].country == from) {
+                                        for (var k = j; k < data.length; k++) {
+                                            aux.push(data[k]);
+                                            if (data[k].country === to) {
+                                                break;
+                                            }
+                                        }
+                                        break;
+                                    }
+                                }
+
+                            }
+
+                            res.send(aux);
+
+                        }
+                        else {
 
                             console.log("mostrando los datos con limit y offset ");
                             console.log("INFO: Sending contacts: " + JSON.stringify(data, 2, null));
                             res.send(data);
+                        }
 
                         }
                     });
@@ -332,10 +705,134 @@ module.exports.getAllData = (req, res) => {
                                 res.sendStatus(404);
                             }
                             /**NOS FALTA COMPROBAR EL FROM Y EL TO***/
+                            /**Si solamente ponemos el from**/
 
-                            console.log("mostrando los datos con limit y offset ");
-                            console.log("INFO: Sending contacts: " + JSON.stringify(data, 2, null));
-                            res.send(data);
+
+                            if (from && !to) {
+                                console.log("Hay from y no hay to");
+
+                                if (!isNaN(from)) {
+                                    console.log("Hay from y no hay to, y from es un año");
+
+                                    /**Si es un año lo que le pasamos al from***/
+
+                                    for (var k = 0; k < data.length; k++) {
+
+                                        if (data[k].year === from) {
+                                            for (var j = k; j < data.length; j++) {
+                                                auxFrom.push(data[j]);
+                                            }
+                                            break;
+                                        }
+
+                                    }
+                                }
+                                else if (isNaN(from)) {
+                                    console.log("Hay from y no hay to, y from es un pais");
+                                    /*Si el from en vez de ser un año es el país*/
+                                    for (var k = 0; k < data.length; k++) {
+
+                                        if (data[k].country === from) {
+                                            for (var j = k; j < data.length; j++) {
+                                                auxFrom.push(data[j]);
+                                            }
+                                            break;
+                                        }
+
+                                    }
+
+
+                                }
+                                res.send(auxFrom);
+                            }
+
+                            /**Si solamente ponemos el to***/
+
+                            else if (to && !from) {
+                                console.log("Hemos entrado en el To y no hay from");
+
+                                if (!isNaN(to)) {
+                                    console.log("El to es un año");
+                                    /**Si es un año lo que le pasamos al to***/
+
+                                    for (var k = 0; k < data.length; k++) {
+
+                                        if (data[k].year === to) {
+                                            /**El TO es el límite,luego tenemos que poner todos los anteriores**/
+                                            for (var j = k; j >= 0; j--) {
+                                                auxTo.push(data[j]);
+                                            }
+                                            break;
+                                        }
+
+                                    }
+                                    res.send(auxTo);
+                                }
+                                else if (isNaN(to)) {
+                                    console.log("el to es un país");
+                                    /*Si el to en vez de ser un año es el país*/
+                                    for (var k = 0; k < data.length; k++) {
+
+                                        if (data[k].country === to) {
+                                            for (var j = k; j >= 0; j--) {
+                                                auxTo.push(data[j]);
+                                            }
+                                            break;
+                                        }
+
+                                    }
+                                    res.send(auxTo);
+
+                                }
+
+
+                            }
+                            else if (from && to) {
+                                console.log("Hay from y to");
+                                /**Comprobamos que los dos sean años**/
+
+                                if (!isNaN(from) && !isNaN(to)) {
+
+                                    console.log("From y to en el que los dos son años");
+
+                                    for (var j = 0; j < data.length; j++) {
+                                        //Si está comprendido entre el from y el to 
+                                        if (data[j].year >= from && data[j].year <= to) {
+                                            aux.push(data[j]);
+
+                                        }
+                                    }
+                                    res.send(aux);
+                                }
+                                else if (isNaN(from) && isNaN(to)) {
+
+                                    console.log("From y to en el que los dos son países");
+
+                                    for (var j = 0; j < data.length; j++) {
+                                        //Si está comprendido entre el from y el to 
+                                        if (data[j].country == from) {
+                                            for (var k = j; k < data.length; k++) {
+                                                aux.push(data[k]);
+                                                if (data[k].country === to) {
+                                                    break;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+
+                                }
+
+                                res.send(aux);
+
+                            }
+                            else {
+
+                                console.log("mostrando los datos con limit y offset ");
+                                console.log("INFO: Sending contacts: " + JSON.stringify(data, 2, null));
+                                res.send(data);
+                            }
+
 
                         }
                     });
@@ -685,8 +1182,24 @@ module.exports.putTwoData = (req, res) => {
 
 module.exports.deleteCollection = (req, res) => {
 
+    var key = req.query.apikey;
 
-    if (db || db.length !== 0) {
+    if (!key || key == null) {
+
+        /******################################## KEY SECTION 1 ################################### ****/
+        console.log("Load initial data Key section 1 error");
+        res.sendStatus(401); //No ha introducido ninguna apikey
+
+    }
+    else if (key != apikey) {
+
+        /******################################## KEY SECTION 2 ################################### ****/
+
+        console.log("load initial data KEY SECTION 2 ERROR");
+        res.sendStatus(403); //La apikey introducida es incorrecta
+    }
+    else if (db || db.length !== 0) {
+
         db.remove({}, {
             multi: true
         }, function(err, borr) {
@@ -702,6 +1215,7 @@ module.exports.deleteCollection = (req, res) => {
                     res.sendStatus(204); // no content
                 }
                 else {
+                    +
                     console.log("No hay contactos que borrar");
                     res.sendStatus(404); // not found
                 }
@@ -718,38 +1232,109 @@ module.exports.deleteCollection = (req, res) => {
 
 module.exports.deleteData = (req, res) => {
 
+    var key = req.query.apikey;
 
-    var country = req.params.country;
+    if (!key || key == null) {
 
-    if (!country) {
-        res.sendStatus(404);
+        /******################################## KEY SECTION 1 ################################### ****/
+        console.log("Load initial data Key section 1 error");
+        res.sendStatus(401); //No ha introducido ninguna apikey
+
+    }
+    else if (key != apikey) {
+
+        /******################################## KEY SECTION 2 ################################### ****/
+
+        console.log("load initial data KEY SECTION 2 ERROR");
+        res.sendStatus(403); //La apikey introducida es incorrecta
+    }
+    else {
+        var country = req.params.country;
+
+        if (!country) {
+            res.sendStatus(404);
+        }
+        else {
+
+            if (isNaN(country)) {
+                db.remove({
+                    country: country
+                }, function(error, conjunto) {
+                    var numeros = JSON.parse(conjunto);
+                    if (error) {
+                        console.log("Algo pasa con la base de datos que está vacía");
+                        res.sendStatus(404);
+                    }
+                    else if (numeros.n > 0) {
+
+                        console.log("El dato se ha borrado satisfactoriamente");
+                        res.sendStatus(204);
+                    }
+                    else {
+
+                        res.sendStatus(404);
+                    }
+
+                });
+            }
+            else if (isNaN(country) === false) {
+                var year = parseInt(country);
+                db.remove({
+                    year: year
+                }, function(error, conjunto) {
+                    var numeros = JSON.parse(conjunto);
+                    if (error) {
+                        console.log("Algo pasa con la base de datos que está vacía");
+                        res.sendStatus(404);
+                    }
+                    else if (numeros.n > 0) {
+
+                        console.log("El dato se ha borrado satisfactoriamente");
+                        res.sendStatus(204);
+                    }
+                    else {
+
+                        res.sendStatus(404);
+                    }
+
+                });
+
+
+            }
+        }
+    }
+
+};
+
+module.exports.deleteTwoData = (req, res) => {
+    var key = req.query.apikey;
+
+    if (!key || key == null) {
+
+        /******################################## KEY SECTION 1 ################################### ****/
+        console.log("Load initial data Key section 1 error");
+        res.sendStatus(401); //No ha introducido ninguna apikey
+
+    }
+    else if (key != apikey) {
+
+        /******################################## KEY SECTION 2 ################################### ****/
+
+        console.log("load initial data KEY SECTION 2 ERROR");
+        res.sendStatus(403); //La apikey introducida es incorrecta
     }
     else {
 
-        if (isNaN(country)) {
-            db.remove({
-                country: country
-            }, function(error, conjunto) {
-                var numeros = JSON.parse(conjunto);
-                if (error) {
-                    console.log("Algo pasa con la base de datos que está vacía");
-                    res.sendStatus(404);
-                }
-                else if (numeros.n > 0) {
+        var country = req.params.country;
+        var year = parseInt(req.params.year);
 
-                    console.log("El dato se ha borrado satisfactoriamente");
-                    res.sendStatus(204);
-                }
-                else {
+        if (!country) {
+            res.sendStatus(404);
 
-                    res.sendStatus(404);
-                }
-
-            });
         }
-        else if (isNaN(country) === false) {
-            var year = parseInt(country);
+        else {
             db.remove({
+                country: country,
                 year: year
             }, function(error, conjunto) {
                 var numeros = JSON.parse(conjunto);
@@ -763,7 +1348,7 @@ module.exports.deleteData = (req, res) => {
                     res.sendStatus(204);
                 }
                 else {
-
+                    console.log("no se ha borrado nada ");
                     res.sendStatus(404);
                 }
 
@@ -772,44 +1357,6 @@ module.exports.deleteData = (req, res) => {
 
         }
     }
-
-
-};
-
-module.exports.deleteTwoData = (req, res) => {
-
-    var country = req.params.country;
-    var year = parseInt(req.params.year);
-
-    if (!country) {
-        res.sendStatus(404);
-
-    }
-    else {
-        db.remove({
-            country: country,
-            year: year
-        }, function(error, conjunto) {
-            var numeros = JSON.parse(conjunto);
-            if (error) {
-                console.log("Algo pasa con la base de datos que está vacía");
-                res.sendStatus(404);
-            }
-            else if (numeros.n > 0) {
-
-                console.log("El dato se ha borrado satisfactoriamente");
-                res.sendStatus(204);
-            }
-            else {
-                console.log("no se ha borrado nada ");
-                res.sendStatus(404);
-            }
-
-        });
-
-
-    }
-
 };
 
 

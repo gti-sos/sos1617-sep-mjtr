@@ -1,4 +1,3 @@
-
 var express = require("express");
 var path = require("path");
 var bodyParser = require("body-parser");
@@ -53,36 +52,3 @@ app.delete("/api/v1/rape-stats",funciones.deleteCollection);
 app.delete("/api/v1/rape-stats/:country" ,funciones.deleteData);
 app.delete("/api/v1/rape-stats/:country/:year" , funciones.deleteTwoData);
 
-
-
-
-
-//MÉTODOS AUXILIARES
-
-
-var tiene = function(limit) {
-    var res = false;
-
-    if (limit != null && limit >= 0) {
-
-        res = true;
-    }
-    return res;
-
-};
-
-var compruebaError = function(limit, offset) {
-    var s = 200;
-    if (limit != null) {
-        if (limit < 0) {
-            s = -1;
-        }
-    }
-    if (offset != null) {
-        if (offset < 0) {
-            s = -1;
-        }
-    }
-
-    return s;
-};

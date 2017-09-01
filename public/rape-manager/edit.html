@@ -1,0 +1,23 @@
+<h2>Edit rape data</h2>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>Year</th>
+                            <th>Number Of Rape</th>
+                            <th>Rate</th>
+                    
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                             <td>{{updateData.country}}</td>
+                             <td>{{updateData.year}}</td>
+                            <td><input class="form-control" ng-model="updateData.numberOfRape" /></td>
+                            <td><input class="form-control" ng-model="updateData.rate" /></td>
+                            <td><button class="btn btn-primary" ng-click="updatedData(updateData)">Update data </button></td>
+
+                        </tr>
+                </tbody>
+            </table> 
