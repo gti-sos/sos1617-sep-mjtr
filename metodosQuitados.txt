@@ -1,0 +1,38 @@
+/**Si solamente ponemos el from**/
+
+                        if (from && to === null) {
+                            console.log("Falta por poner el to");
+                            res.sendStatus(404);
+                            if (!isNaN(from)) {
+                                console.log("Hay from y no hay to, y from es un año");
+
+                                /**Si es un año lo que le pasamos al from***/
+
+                                for (var k = 0; k < data.length; k++) {
+
+                                    if (data[k].year === from) {
+                                        for (var j = k; j < data.length; j++) {
+                                            auxFrom.push(data[j]);
+                                        }
+                                        break;
+                                    }
+                                }
+                                res.send(auxFrom);
+                            }
+                            else if (isNaN(from)) {
+                                console.log("Hay from y no hay to, y from es un pais");
+                                /*Si el from en vez de ser un año es el país*/
+                                for (var k = 0; k < data.length; k++) {
+
+                                    if (data[k].country === from) {
+                                        for (var j = k; j < data.length; j++) {
+                                            auxFrom.push(data[j]);
+                                        }
+                                        break;
+                                    }
+
+                                }
+                            res.send(auxFrom);
+
+                            }
+                        }
