@@ -75,7 +75,8 @@ angular.module("mainCtrl").controller("listCtrl", ["$scope", "$http", function($
     $scope.addData = function(newData) {
 
         $http
-            .post($scope.url + "?apikey=" + $scope.apikey)
+            .post("/api/v1/rape-stats?apikey=" + $scope.apikey)
+            
             .then(function(response) {
                 console.log("Created");
                 alert("Añadido correctamente");
@@ -94,10 +95,10 @@ angular.module("mainCtrl").controller("listCtrl", ["$scope", "$http", function($
                 }
             });
     };
-    $scope.delete = function(country) {
+    $scope.deleteData = function(country,year) {
 
         $http
-            .delete($scope.url + "/" + country + "?apikey=" + $scope.apikey)
+            .delete($scope.url + "/" + country + "/" + year+ "?apikey=" + $scope.apikey)
             .then(function(response) {
                 console.log("Deleted" + country);
                 alert("Eliminado correctamente");
