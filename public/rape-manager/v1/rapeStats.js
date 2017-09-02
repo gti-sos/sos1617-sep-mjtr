@@ -170,8 +170,8 @@ module.exports.getAllData = (req, res) => {
     var aux = [];
     limit = parseInt(req.query.limit);
     offset = parseInt(req.query.offset);
-    from = req.query.from;
-    to = req.query.to;
+    from = parseInt(req.query.from);
+    to = parseInt(req.query.to);
     var auxFrom = [];
     var auxTo = [];
 
