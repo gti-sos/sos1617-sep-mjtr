@@ -9,6 +9,8 @@ angular.module("mainCtrl",["ngRoute"]).config(function($routeProvider){
     }).when("/analytics",{
         templateUrl : "/analytics/analytics.html",
         controller : "GrupalWidget"
+    
+        
     }).when("/integrations",{
         templateUrl : "/integrations/integrations.html"
         

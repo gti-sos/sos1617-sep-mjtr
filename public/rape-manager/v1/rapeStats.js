@@ -9,6 +9,7 @@ var offset = null;
 var from = null;
 var to = null;
 
+//TODO:Revisar cuando se pone solamente el from y el to,en el get grupal 
 /*Si se intenta acceder a la API con…
 sin apikey se debe devolver el código 401.
 con una apikey inválida se debe devolver el código 403.

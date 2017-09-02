@@ -1,7 +1,7 @@
 /*global angular*/
 angular.module("mainCtrl").controller("listCtrl", ["$scope", "$http", function($scope, $http) {
+    
     console.log("listCrl OK");
-
     $scope.url = "/api/v1/rape-stats";
     $scope.apikey = "septiembre";
     $scope.datos = [];
