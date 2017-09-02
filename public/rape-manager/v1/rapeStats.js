@@ -238,13 +238,14 @@ module.exports.getAllData = (req, res) => {
                                 for (var k = 0; k < data.length; k++) {
 
                                     if (data[k].year === from) {
-                                        for (var j = k; j < data.length; j++) {
+                                        while(k < data.length) {
                                             auxFrom.push(data[j]);
                                         }
                                         break;
                                     }
 
                                 }
+                                res.send(auxFrom);
                             }
                             else if (isNaN(from)) {
                                 console.log("Hay from y no hay to, y from es un pais");
@@ -262,7 +263,6 @@ module.exports.getAllData = (req, res) => {
 
 
                             }
-                            res.send(auxFrom);
                         }
 
                         /**Si solamente ponemos el to***/
