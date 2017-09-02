@@ -72,6 +72,35 @@ angular.module("mainCtrl").controller("listCtrl", ["$scope", "$http", function($
     }
 
     //Metodos scope
+    
+    
+    $scope.add = function(newData) {
+            $scope.newData.year = Number($scope.newData.year);
+            $scope.newData.numberOfRape = Number($scope.newData.numberOfRape);
+            $scope.newData.rate = Number($scope.newData.rate);
+
+            
+
+            $http
+                .post($scope.url+"?apikey="+$scope.apikey,$scope.newData)
+                .then(function(response) {
+                    console.log("Created");
+                     alert("Añadido correctamente");
+                    refresh();
+                },function(response) {
+                    switch (response.status) {
+                        case 409:
+                            alert("Error, you are trying to add a existing country");
+                            break;
+                        case 400:
+                            alert("You have not fill all data");
+                            break;
+                        default:
+                            alert("Error try again");
+                            break;
+                    }
+                    });
+        };
     $scope.addData = function(newData) {
 
         $http
