@@ -1526,7 +1526,7 @@ module.exports.deleteTwoData = (req, res) => {
 
 //MÉTODOS AUXILIARES
 
-
+ 
 var tiene = function(limit) {
     var res = false;
 
