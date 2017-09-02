@@ -3,7 +3,7 @@
     <body style="width:600px;margin-left:350px; border:solid" ng-controller="listCtrl">
 
 
-        <h1>Hiv-Stats Api</h1>
+        <h1>Rape-Stats Api</h1>
 
         <table class="table table-striped">
             <thead>
@@ -60,7 +60,7 @@
             <td>{{data.numberOfRape}}</td>
             <td>{{data.rate}}</td>
             <td><button class="btn btn-danger" ng-click="deleteData(data.country, data.year)">Delete</button></td>
-            <td><a href="#!/hiv-stats/edit/{{data.country}}/{{data.year}}"><button class="btn btn-secondary" >Edit</button></a></td>
+            <td><a href="#!/rape-stats/edit/{{data.country}}/{{data.year}}"><button class="btn btn-secondary" >Edit</button></a></td>
 
                     </tr>
 

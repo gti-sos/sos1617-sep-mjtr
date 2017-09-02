@@ -35,25 +35,25 @@ angular.module("mainCtrl",["ngRoute"]).config(function($routeProvider){
  
  
     }).when("/analytics/rape-stats/ejscharts",{
-        templateUrl : "/analytics/hiv-stats/ejs.html",
+        templateUrl : "/analytics/rape-stats/ejs.html",
         controller : "EJSChartsController"
    
     }).when("/proxy/rape-stats",{
-        templateUrl : "/analytics/hiv-stats/ext2proxy.html",
+        templateUrl : "/analytics/rape-stats/ext2proxy.html",
         controller : "ProxyCtrl"
         
         
     }).when("/analytics/rape-stats/startups",{
-        templateUrl : "/analytics/hiv-stats/ext1.html",
+        templateUrl : "/analytics/rape-stats/ext1.html",
         controller : "CtrlExt"
         
     }).when("/mashup",{
-        templateUrl : "/analytics/hiv-stats/mashup.html",
+        templateUrl : "/analytics/rape-stats/mashup.html",
         controller : "mashupCtrl"
         
         
     }).when("/proweb",{
-        templateUrl : "/analytics/hiv-stats/proweb.html",
+        templateUrl : "/analytics/rape-stats/proweb.html",
         controller : "prowebCtrl"
     });
 
