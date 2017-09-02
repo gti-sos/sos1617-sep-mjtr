@@ -19,16 +19,16 @@ angular.module("mainCtrl",["ngRoute"]).config(function($routeProvider){
         templateUrl : "/about.html"
     
    }).when("/rape-stats",{
-        templateUrl : "/hiv-manager/list.html",
+        templateUrl : "/rape-manager/list.html",
         controller : "listCtrl"
    
     }).when("/rape-stats/edit/:name/:year",{
-        templateUrl : "/hiv-manager/edit.html",
+        templateUrl : "/rape-manager/edit.html",
         controller : "editCtrl"
  
  
     }) .when("/rape-stats/pruebaGeo",{
-        templateUrl : "/analytics/hiv-stats/googleGeo.html",
+        templateUrl : "/analytics/rape-stats/googleGeo.html",
         controller : "HivGeoController"
  
  
