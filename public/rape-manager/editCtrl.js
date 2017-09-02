@@ -3,12 +3,12 @@
 angular.module("mainCtrl")
 .controller("editCtrl",["$scope","$http","$routeParams","$location",function($scope,$http,$routeParams,$location){
     console.log("Edit controller initialized");
-    $scope.url  = "https://sos1617-sep-mjtr.herokuapp.com/api/v1/rape-stats";
+    $scope.url  = "https://sos1617-sep-mjtr.herokuapp.com/api/v1/rape-stats/";
     var apikey = "apikey=septiembre";
     
     function refresh(){
         $http
-            .get($scope.url + $routeParams.name + "/" + Number($routeParams.year) + "?" + apikey)
+            .get($scope.url +  $routeParams.name + "/" + Number($routeParams.year) + "?" + apikey)
             .then(function successCallback(response) {
                     $scope.updateData = response.data[0];
 
