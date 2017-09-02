@@ -227,7 +227,6 @@ module.exports.getAllData = (req, res) => {
 
                         /**Si solamente ponemos el from**/
 
-
                         if (from && !to) {
                             console.log("Hay from y no hay to");
 
@@ -543,133 +542,133 @@ module.exports.getAllData = (req, res) => {
                             }
                             /**##################BÚSQUEDAS########################**/
 
-                        /**Si solamente ponemos el from**/
+                            /**Si solamente ponemos el from**/
 
 
-                        if (from && !to) {
-                            console.log("Hay from y no hay to");
+                            if (from && !to) {
+                                console.log("Hay from y no hay to");
 
-                            if (!isNaN(from)) {
-                                console.log("Hay from y no hay to, y from es un año");
+                                if (!isNaN(from)) {
+                                    console.log("Hay from y no hay to, y from es un año");
 
-                                /**Si es un año lo que le pasamos al from***/
+                                    /**Si es un año lo que le pasamos al from***/
 
-                                for (var k = 0; k < data.length; k++) {
+                                    for (var k = 0; k < data.length; k++) {
 
-                                    if (data[k].year === from) {
-                                        for (var j = k; j < data.length; j++) {
-                                            auxFrom.push(data[j]);
-                                        }
-                                        break;
-                                    }
-
-                                }
-                            }
-                            else if (isNaN(from)) {
-                                console.log("Hay from y no hay to, y from es un pais");
-                                /*Si el from en vez de ser un año es el país*/
-                                for (var k = 0; k < data.length; k++) {
-
-                                    if (data[k].country === from) {
-                                        for (var j = k; j < data.length; j++) {
-                                            auxFrom.push(data[j]);
-                                        }
-                                        break;
-                                    }
-
-                                }
-
-
-                            }
-                            res.send(auxFrom);
-                        }
-
-                        /**Si solamente ponemos el to***/
-
-                        else if (to && !from) {
-                            console.log("Hemos entrado en el To y no hay from");
-
-                            if (!isNaN(to)) {
-                                console.log("El to es un año");
-                                /**Si es un año lo que le pasamos al to***/
-
-                                for (var k = 0; k < data.length; k++) {
-
-                                    if (data[k].year === to) {
-                                        /**El TO es el límite,luego tenemos que poner todos los anteriores**/
-                                        for (var j = k; j >= 0; j--) {
-                                            auxTo.push(data[j]);
-                                        }
-                                        break;
-                                    }
-
-                                }
-                                res.send(auxTo);
-                            }
-                            else if (isNaN(to)) {
-                                console.log("el to es un país");
-                                /*Si el to en vez de ser un año es el país*/
-                                for (var k = 0; k < data.length; k++) {
-
-                                    if (data[k].country === to) {
-                                        for (var j = k; j >= 0; j--) {
-                                            auxTo.push(data[j]);
-                                        }
-                                        break;
-                                    }
-
-                                }
-                                res.send(auxTo);
-
-                            }
-
-
-                        }
-                        else if (from && to) {
-                            console.log("Hay from y to");
-                            /**Comprobamos que los dos sean años**/
-
-                            if (!isNaN(from) && !isNaN(to)) {
-
-                                console.log("From y to en el que los dos son años");
-
-                                for (var j = 0; j < data.length; j++) {
-                                    //Si está comprendido entre el from y el to 
-                                    if (data[j].year >= from && data[j].year <= to) {
-                                        aux.push(data[j]);
-
-                                    }
-                                }
-                                res.send(aux);
-                            }
-                            else if (isNaN(from) && isNaN(to)) {
-
-                                console.log("From y to en el que los dos son países");
-
-                                for (var j = 0; j < data.length; j++) {
-                                    //Si está comprendido entre el from y el to 
-                                    if (data[j].country == from) {
-                                        for (var k = j; k < data.length; k++) {
-                                            aux.push(data[k]);
-                                            if (data[k].country === to) {
-                                                break;
+                                        if (data[k].year === from) {
+                                            for (var j = k; j < data.length; j++) {
+                                                auxFrom.push(data[j]);
                                             }
+                                            break;
                                         }
-                                        break;
+
                                     }
                                 }
+                                else if (isNaN(from)) {
+                                    console.log("Hay from y no hay to, y from es un pais");
+                                    /*Si el from en vez de ser un año es el país*/
+                                    for (var k = 0; k < data.length; k++) {
 
+                                        if (data[k].country === from) {
+                                            for (var j = k; j < data.length; j++) {
+                                                auxFrom.push(data[j]);
+                                            }
+                                            break;
+                                        }
+
+                                    }
+
+
+                                }
+                                res.send(auxFrom);
                             }
 
-                            res.send(aux);
+                            /**Si solamente ponemos el to***/
 
-                        }
-                        else {
+                            else if (to && !from) {
+                                console.log("Hemos entrado en el To y no hay from");
 
-                            console.log("mostrando los datos con limit y offset ");
-                            console.log("INFO: Sending contacts: " + JSON.stringify(data, 2, null));
-                            res.send(data);
-                        }
+                                if (!isNaN(to)) {
+                                    console.log("El to es un año");
+                                    /**Si es un año lo que le pasamos al to***/
+
+                                    for (var k = 0; k < data.length; k++) {
+
+                                        if (data[k].year === to) {
+                                            /**El TO es el límite,luego tenemos que poner todos los anteriores**/
+                                            for (var j = k; j >= 0; j--) {
+                                                auxTo.push(data[j]);
+                                            }
+                                            break;
+                                        }
+
+                                    }
+                                    res.send(auxTo);
+                                }
+                                else if (isNaN(to)) {
+                                    console.log("el to es un país");
+                                    /*Si el to en vez de ser un año es el país*/
+                                    for (var k = 0; k < data.length; k++) {
+
+                                        if (data[k].country === to) {
+                                            for (var j = k; j >= 0; j--) {
+                                                auxTo.push(data[j]);
+                                            }
+                                            break;
+                                        }
+
+                                    }
+                                    res.send(auxTo);
+
+                                }
+
+
+                            }
+                            else if (from && to) {
+                                console.log("Hay from y to");
+                                /**Comprobamos que los dos sean años**/
+
+                                if (!isNaN(from) && !isNaN(to)) {
+
+                                    console.log("From y to en el que los dos son años");
+
+                                    for (var j = 0; j < data.length; j++) {
+                                        //Si está comprendido entre el from y el to 
+                                        if (data[j].year >= from && data[j].year <= to) {
+                                            aux.push(data[j]);
+
+                                        }
+                                    }
+                                    res.send(aux);
+                                }
+                                else if (isNaN(from) && isNaN(to)) {
+
+                                    console.log("From y to en el que los dos son países");
+
+                                    for (var j = 0; j < data.length; j++) {
+                                        //Si está comprendido entre el from y el to 
+                                        if (data[j].country == from) {
+                                            for (var k = j; k < data.length; k++) {
+                                                aux.push(data[k]);
+                                                if (data[k].country === to) {
+                                                    break;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+
+                                }
+
+                                res.send(aux);
+
+                            }
+                            else {
+
+                                console.log("mostrando los datos con limit y offset ");
+                                console.log("INFO: Sending contacts: " + JSON.stringify(data, 2, null));
+                                res.send(data);
+                            }
 
                         }
                     });
@@ -857,6 +856,8 @@ module.exports.getAllData = (req, res) => {
 module.exports.getDataName = function(req, res) {
 
     var key = req.query.apikey;
+    limit = parseInt(req.query.limit);
+    offset = parseInt(req.query.offset);
 
     if (!key || key == null) {
 
@@ -893,46 +894,192 @@ module.exports.getDataName = function(req, res) {
 
         else {
 
-            db.find({}).toArray(function(error, conjunto) {
+            /***Comprobamos si hay limit o offset**/
+            //Si no hay ni limit no offset
 
-                if (conjunto.length === 0) {
+            if (tiene(limit) == false && tiene(offset) == false) {
 
-                    /******################################## Section 2 GET ONE DATA ################################### ****/
+                db.find({}).toArray(function(error, conjunto) {
 
-                    console.log("SECTION 2 GET ONE DATA ERROR, Algo pasa con la base de datos que está vacía");
-                    res.sendStatus(404);
-                }
-                else {
-                    for (var i = 0; i < conjunto.length; i++) {
+                    if (conjunto.length === 0) {
 
-                        if (isNaN(country)) {
-                            if (country == conjunto[i].country) {
-                                aux.push(conjunto[i]);
-                            }
+                        /******################################## Section 2 GET ONE DATA ################################### ****/
 
-                        }
-                        else if (!isNaN(country)) {
-
-                            if (country == conjunto[i].year) {
-                                aux.push(conjunto[i]);
-                            }
-                        }
-
-                    }
-
-                    if (aux.length === 0) {
-                        /******################################## Section 3 GET ONE DATA ################################### ****/
-
-                        console.log("SECTION 3 GET ONE DATA ERROR, el conjunto auxiliar creado está vacío");
+                        console.log("SECTION 2 GET ONE DATA ERROR, Algo pasa con la base de datos que está vacía");
                         res.sendStatus(404);
                     }
                     else {
-                        console.log("Enviando los datos encontrados con el parámetro indicado");
-                        res.send(aux);
-                    }
-                }
+                        for (var i = 0; i < conjunto.length; i++) {
 
-            });
+                            if (isNaN(country)) {
+                                if (country == conjunto[i].country) {
+                                    aux.push(conjunto[i]);
+                                }
+
+                            }
+                            else if (!isNaN(country)) {
+
+                                if (country == conjunto[i].year) {
+                                    aux.push(conjunto[i]);
+                                }
+                            }
+
+                        }
+
+                        if (aux.length === 0) {
+                            /******################################## Section 3 GET ONE DATA ################################### ****/
+
+                            console.log("SECTION 3 GET ONE DATA ERROR, el conjunto auxiliar creado está vacío");
+                            res.sendStatus(404);
+                        }
+                        else {
+                            console.log("Enviando los datos encontrados con el parámetro indicado");
+                            res.send(aux);
+                        }
+                    }
+
+                });
+
+                //Comprobamos ahora si tiene limit y no tiene offset   
+            }
+            else if (tiene(limit) && !tiene(offset)) {
+
+                db.find({}).limit(limit).toArray(function(error, conjunto) {
+
+                    if (conjunto.length === 0) {
+
+                        /******################################## Section 2 GET ONE DATA ################################### ****/
+
+                        console.log("SECTION 2 GET ONE DATA ERROR, Algo pasa con la base de datos que está vacía XXX");
+                        res.sendStatus(404);
+                    }
+                    else {
+                        for (var i = 0; i < conjunto.length; i++) {
+
+                            if (isNaN(country)) {
+                                if (country == conjunto[i].country) {
+                                    aux.push(conjunto[i]);
+                                }
+
+                            }
+                            else if (!isNaN(country)) {
+
+                                if (country == conjunto[i].year) {
+                                    aux.push(conjunto[i]);
+                                }
+                            }
+
+                        }
+
+                        if (aux.length === 0) {
+                            /******################################## Section 3 GET ONE DATA ################################### ****/
+
+                            console.log("SECTION 3 GET ONE DATA ERROR, el conjunto auxiliar creado está vacío");
+                            res.sendStatus(404);
+                        }
+                        else {
+                            console.log("Enviando los datos encontrados con el parámetro indicado");
+                            res.send(aux);
+                        }
+                    }
+
+                });
+
+
+                /**Si no tenemos limit pero hemos puesto offset**/
+
+            }
+            else if (!tiene(limit) && tiene(offset)) {
+
+                db.find({}).skip(offset).toArray(function(error, conjunto) {
+
+                    if (conjunto.length === 0) {
+
+                        /******################################## Section 2 GET ONE DATA ################################### ****/
+
+                        console.log("SECTION 2 GET ONE DATA ERROR, Algo pasa con la base de datos que está vacía XXX");
+                        res.sendStatus(404);
+                    }
+                    else {
+                        for (var i = 0; i < conjunto.length; i++) {
+
+                            if (isNaN(country)) {
+                                if (country == conjunto[i].country) {
+                                    aux.push(conjunto[i]);
+                                }
+
+                            }
+                            else if (!isNaN(country)) {
+
+                                if (country == conjunto[i].year) {
+                                    aux.push(conjunto[i]);
+                                }
+                            }
+
+                        }
+
+                        if (aux.length === 0) {
+                            /******################################## Section 3 GET ONE DATA ################################### ****/
+
+                            console.log("SECTION 3 GET ONE DATA ERROR, el conjunto auxiliar creado está vacío");
+                            res.sendStatus(404);
+                        }
+                        else {
+                            console.log("Enviando los datos encontrados con el parámetro indicado");
+                            res.send(aux);
+                        }
+                    }
+
+                });
+
+
+
+            }
+            /**Si tenemos limit y offset**/
+            else if (tiene(limit) && tiene(offset)) {
+
+                db.find({}).skip(offset).limit(limit).toArray(function(error, conjunto) {
+
+                    if (conjunto.length === 0) {
+
+                        /******################################## Section 2 GET ONE DATA ################################### ****/
+
+                        console.log("SECTION 2 GET ONE DATA ERROR, Algo pasa con la base de datos que está vacía XXX");
+                        res.sendStatus(404);
+                    }
+                    else {
+                        for (var i = 0; i < conjunto.length; i++) {
+
+                            if (isNaN(country)) {
+                                if (country == conjunto[i].country) {
+                                    aux.push(conjunto[i]);
+                                }
+
+                            }
+                            else if (!isNaN(country)) {
+
+                                if (country == conjunto[i].year) {
+                                    aux.push(conjunto[i]);
+                                }
+                            }
+
+                        }
+
+                        if (aux.length === 0) {
+                            /******################################## Section 3 GET ONE DATA ################################### ****/
+
+                            console.log("SECTION 3 GET ONE DATA ERROR, el conjunto auxiliar creado está vacío");
+                            res.sendStatus(404);
+                        }
+                        else {
+                            console.log("Enviando los datos encontrados con el parámetro indicado");
+                            res.send(aux);
+                        }
+                    }
+
+                });
+
+            }
 
         }
     }
@@ -965,45 +1112,46 @@ module.exports.getDataNameYear = function(req, res) {
         res.sendStatus(403); //La apikey introducida es incorrecta
     }
     else {
-    if (!nombre || !year) {
+        if (!nombre || !year) {
 
-        console.log("BAD Request,try again with new data");
-        res.sendStatus(400); // bad request
+            console.log("BAD Request,try again with new data");
+            res.sendStatus(400); // bad request
 
-    }
-    else if (!db) {
-        res.sendStatus(404); //Base de datos está vacía
-    }
-    else {
-        db.find({}).toArray(function(error, conjunto) {
+        }
+        else if (!db) {
+            res.sendStatus(404); //Base de datos está vacía
+        }
+        else {
+            db.find({}).toArray(function(error, conjunto) {
 
-            if (conjunto.length === 0) {
-                console.log("Algo pasa con la base de datos que está vacía");
-                res.sendStatus(404);
-            }
-            else {
+                if (conjunto.length === 0) {
+                    console.log("Algo pasa con la base de datos que está vacía");
+                    res.sendStatus(404);
+                }
+                else {
 
-                for (var j = 0; j < conjunto.length; j++) {
+                    for (var j = 0; j < conjunto.length; j++) {
 
-                    if (isNaN(nombre) && isNaN(parseInt(year)) === false) {
-                        if (conjunto[j].country === nombre && conjunto[j].year == parseInt(year)) {
-                            aux.push(conjunto[j]);
+                        if (isNaN(nombre) && isNaN(parseInt(year)) === false) {
+                            if (conjunto[j].country === nombre && conjunto[j].year == parseInt(year)) {
+                                aux.push(conjunto[j]);
+
+                            }
 
                         }
+                    }
+
+                    if (!aux || aux == [] || aux.length === 0) {
+                        res.sendStatus(404);
+                    }
+                    else {
+                        res.send(aux);
 
                     }
                 }
-
-                if (!aux || aux == [] || aux.length === 0) {
-                    res.sendStatus(404);
-                }else{
-                res.send(aux);
-
-            }
-}
-        });
+            });
+        }
     }
-}
 };
 
 
@@ -1375,9 +1523,9 @@ module.exports.deleteTwoData = (req, res) => {
     }
 };
 
- 
+
 //MÉTODOS AUXILIARES
- 
+
 
 var tiene = function(limit) {
     var res = false;
@@ -1405,4 +1553,3 @@ var compruebaError = function(limit, offset) {
 
     return s;
 };
-  
