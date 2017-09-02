@@ -3,7 +3,7 @@ angular.module("mainCtrl").controller("listCtrl", ["$scope", "$http", function($
     console.log("listCrl OK");
 
     $scope.url = "/api/v1/rape-stats";
-    $scope.apikey = "manuel";
+    $scope.apikey = "septiembre";
     $scope.datos = [];
    /* $scope.currentPage = 0;
     $scope.pageSize = 6;
@@ -29,7 +29,7 @@ angular.module("mainCtrl").controller("listCtrl", ["$scope", "$http", function($
     //Recargar pagina inicial
 
     function refresh() {
-        if ($scope.apikey == "manuel") {
+        if ($scope.apikey == "septiembre") {
             $http
                 .get("/api/v1/rape-stats?apikey=" + $scope.apikey /*+ "&limit=" + $scope.limit + "&offset=" + $scope.offset*/ )
 

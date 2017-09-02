@@ -3,8 +3,8 @@
 angular.module("mainCtrl")
 .controller("editCtrl",["$scope","$http","$routeParams","$location",function($scope,$http,$routeParams,$location){
     console.log("Edit controller initialized");
-    $scope.url  = "https://sos1617-09.herokuapp.com/api/v2/hiv-stats/";
-    var apikey = "apikey=manuel";
+    $scope.url  = "https://sos1617-sep-mjtr.herokuapp.com/api/v1/rape-stats";
+    var apikey = "apikey=septiembre";
     
     function refresh(){
         $http
@@ -25,9 +25,8 @@ angular.module("mainCtrl")
                 .put($scope.url  + newData.country + "/" + Number(newData.year) + "?apikey=manuel", {
                     country: newData.country,
                     year: newData.year,
-                    incidence: newData.incidence,
-                    total: newData.total,
-                    percentage: newData.percentage
+                    numberOfRape: newData.numberOfRape,
+                    rate: newData.rate
                 })
                 .then(function(response) {
                     console.log("Stat Updated 2");

@@ -35,7 +35,6 @@ var funciones = require("./public/rape-manager/v1/rapeStats.js");
 
 app.get("/api/v1/rape-stats/loadInitialData",funciones.getCreateData);
 app.get("/api/v1/rape-stats",funciones.getAllData);
-app.get("/api/v1/rape-stats",funciones.getAllData);
 
 app.get("/api/v1/rape-stats/:name",funciones.getDataName);
 app.get("/api/v1/rape-stats/:name/:year",funciones.getDataNameYear);

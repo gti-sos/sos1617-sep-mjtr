@@ -1,0 +1,21 @@
+/*TEST EN HEROKU API MANUEL*/
+
+curl -v -XGET -H "Content-type: application/json" 'https://sos1617-sep-mjtr.herokuapp.com/api/v1/rape-stats/loadInitialData?apikey=septiembre'
+curl -v -XGET -H "Content-type: application/json" 'https://sos1617-sep-mjtr.herokuapp.com/api/v1/rape-stats?apikey=septiembre'
+curl -v -XGET -H "Content-type: application/json" 'https://sos1617-sep-mjtr.herokuapp.com/api/v1/rape-stats?apikey=septiembre&limit=3&offset=4'
+curl -v -XGET -H "Content-type: application/json" 'https://sos1617-sep-mjtr.herokuapp.com/api/v1/rape-stats/portugal?apikey=septiembre'
+curl -v -XGET -H "Content-type: application/json" 'https://sos1617-sep-mjtr.herokuapp.com/api/v1/rape-stats/portugal?apikey=septiembre&limit=1'
+
+
+curl -v -XPOST -H "Content-type: application/json" -d '{"country" : "spain" ,"year" : 2013 , "incidence": 3278, "total" : 29987 , "percentage" : 7.0}' 'https://sos1617-09.herokuapp.com/api/v1/hiv-stats'
+curl -v -XPOST -H "Content-type: application/json" -d '{"country" : "spain" ,"year" : "2013" , "incidence": "3278", "total" : "29987" , "percentage" : "7.0"}' 'https://sos1617-09.herokuapp.com/api/v1/hiv-stats/spain'
+
+
+curl -v -XPUT -H "Content-type: application/json" -d '{"country" : "portugal" ,"year" : 2013 , "incidence": 3278, "total" : 29987 , "percentage" : 7.0}' 'https://sos1617-09.herokuapp.com/api/v1/hiv-stats/portugal'
+curl -v -XPUT -H "Content-type: application/json" -d '{"country" : "portugal" ,"year" : 2013 , "incidence": 3278, "total" : 29987 , "percentage" : 7.0}' 'https://sos1617-09.herokuapp.com/api/v1/hiv-stats/'
+curl -v -XPUT -H "Content-type: application/json" -d '{"country" : "portugal" ,"year" : 2013 , "incidence": 5436, "total" : 98764 , "percentage" : 10.0}' 'https://sos1617-09.herokuapp.com/api/v1/hiv-stats//portugal'
+
+curl -v -XDELETE -H "Content-type: application/json" -d '{"country" : "spain" ,"year" : 2013 , "incidence": 3278, "total" : 29987 , "percentage" : 7.0}' 'https://sos1617-09.herokuapp.com/api/v1/hiv-stats/spain'
+curl -v -XGET -H "Content-type: application/json" 'https://sos1617-09.herokuapp.com/api/v1/hiv-stats/spain'
+curl -v -XDELETE -H "Content-type: application/json" 'https://sos1617-09.herokuapp.com/api/v1/hiv-stats/'
+curl -v -XGET -H "Content-type: application/json" 'https://sos1617-09.herokuapp.com/api/v1/hiv-stats/'

@@ -866,8 +866,7 @@ module.exports.getDataName = function(req, res) {
         console.log("get un recurso en concreto por nombre o año Key section 1 error");
         res.sendStatus(401); //No ha introducido ninguna apikey
 
-    }
-    else if (key != apikey) {
+    }else if (key != apikey) {
 
         /******################################## KEY SECTION 2 ################################### ****/
 
