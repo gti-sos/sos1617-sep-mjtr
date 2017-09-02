@@ -227,9 +227,9 @@ module.exports.getAllData = (req, res) => {
 
                         /**Si solamente ponemos el from**/
 
-                        if (from && !to) {
-                            console.log("Hay from y no hay to");
-
+                        if (from && to == null) {
+                            console.log("Falta por poner el to");
+                            //res.sendStatus(404);
                             if (!isNaN(from)) {
                                 console.log("Hay from y no hay to, y from es un año");
 
