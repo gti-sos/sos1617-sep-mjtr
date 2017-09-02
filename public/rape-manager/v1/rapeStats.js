@@ -227,7 +227,7 @@ module.exports.getAllData = (req, res) => {
 
                         /**Si solamente ponemos el from**/
 
-                        if (from && to == null) {
+                        if (from && to === null) {
                             console.log("Falta por poner el to");
                             //res.sendStatus(404);
                             if (!isNaN(from)) {
@@ -238,12 +238,11 @@ module.exports.getAllData = (req, res) => {
                                 for (var k = 0; k < data.length; k++) {
 
                                     if (data[k].year === from) {
-                                        while(k < data.length) {
+                                        for (var j = k; j < data.length; j++) {
                                             auxFrom.push(data[j]);
                                         }
                                         break;
                                     }
-
                                 }
                                 res.send(auxFrom);
                             }
@@ -260,7 +259,7 @@ module.exports.getAllData = (req, res) => {
                                     }
 
                                 }
-
+                            res.send(auxFrom);
 
                             }
                         }
