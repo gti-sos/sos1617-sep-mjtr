@@ -26,9 +26,9 @@ center: [
 -72.508049,
 41.387161
 ],
-},*/    
-        $scope.findItemsByKeywordsResponse =[];
-        $scope.value= [];
+},*/
+        $scope.findItemsByKeywordsResponse = [];
+        $scope.value = [];
         $scope.searchResult = [];
         $scope.title = [];
         $scope.currentPrice = [];
@@ -37,8 +37,28 @@ center: [
         $scope.data2 = {};
         var data2 = {};
 
-        $http
-            .get("https://svcs.ebay.com/services/search/FindingService/v1?SECURITY-APPNAME=ManuTorr-sos16107-PRD-491ebc5cc-06d6834d&OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&RESPONSE-DATA-FORMAT=JSON&callback=_cb_findItemsByKeywords&REST-PAYLOAD&keywords=Smartphones&paginationInput.entriesPerPage=6&GLOBAL-ID=EBAY-ES&siteid=186")
+        var mashape = {
+            method: 'GET',
+            url: "https://svcs.ebay.com/services/search/FindingService/v1?SECURITY-APPNAME=ManuTorr-sos16107-PRD-491ebc5cc-06d6834d&OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&RESPONSE-DATA-FORMAT=JSON&callback=_cb_findItemsByKeywords&REST-PAYLOAD&keywords=Smartphones&paginationInput.entriesPerPage=6&GLOBAL-ID=EBAY-ES&siteid=186",
+            headers: {
+                "X-Mashape-Key": "V59uv5BWMcmshTX0FOA8AE8dR7xmp1a6OWOjsnDj3kXaiXpTMj", //get an api key at mashape.com
+                "Accept": "application/json",
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Authorization": "Basic <B64-encoded-oauth-credentials>",
+                "App ID (Client ID)": "ManuTorr-sos16107-SBX-08e2d25a0-16c2b8e4",
+                "Dev ID": "15eddb4f-5008-4f2a-9c69-e8517abe3429",
+                "Cert ID (Client Secret)": "SBX-8e2d25a0d7a1-a65a-43f3-b531-15f4"
+
+            },
+            requestbody: {
+
+                "grant_type": "client_credentials",
+                "redirect_uri": "<RuName-value>"
+            }
+        };
+
+        $http(mashape)
+            //.get("https://svcs.ebay.com/services/search/FindingService/v1?SECURITY-APPNAME=ManuTorr-sos16107-PRD-491ebc5cc-06d6834d&OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&RESPONSE-DATA-FORMAT=JSON&callback=_cb_findItemsByKeywords&REST-PAYLOAD&keywords=Smartphones&paginationInput.entriesPerPage=6&GLOBAL-ID=EBAY-ES&siteid=186")
             .then(function(response) {
                 console.log("Datos mashup cogidos correctamente");
                 data2 = response.data;
@@ -47,7 +67,7 @@ center: [
                 for (var i = 0; i < 6; i++) {
                     $scope.title.push($scope.data2[i].title);
                     console.log($scope.title);
-                   
+
                     $scope.currentPrice.push(Number($scope.data2[i].sellingStatus.currentPrice[1]));
                     console.log($scope.currentPrice);
                 }
