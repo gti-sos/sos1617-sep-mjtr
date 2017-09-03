@@ -37,10 +37,9 @@ center: [
         $scope.data2 = {};
         var data2 = {};
 
-
         var proweb = {
             method: 'GET',
-            url: "cloud.docker.com",
+            url: "cloud.docker.com/api/infra/v1/provider/digitalocean/",
             headers: {
                 "Authorization": "Basic dXNlcm5hbWU6YXBpa2V5",
                 "Accept": "application / json"
@@ -67,8 +66,6 @@ center: [
                 console.log(response.data);
 
 
-
-            });
 
                 $http
                     .get("https://sos1617-sep-mjtr.herokuapp.com//api/v1/rape-stats?apikey=septiembre")
@@ -132,5 +129,7 @@ center: [
 
                     });
 
+
+            });
 
     }]);
