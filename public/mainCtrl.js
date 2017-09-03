@@ -48,7 +48,7 @@ angular.module("mainCtrl",["ngRoute"]).config(function($routeProvider){
         controller : "CtrlExt"
         
     }).when("/mashup",{
-        templateUrl : "/analytics/rape-stats/mashup.html",
+        templateUrl : "/analytics/mashup.html",
         controller : "mashupCtrl"
         
         

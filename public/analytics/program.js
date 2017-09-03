@@ -7,7 +7,7 @@ angular
     .controller("programCtrl", ["$http", "$scope", function($http, $scope) {
 
         //Variables de mi API
-        $scope.apikey = "manuel";
+        $scope.apikey = "septiembre";
         $scope.country = [];
         $scope.year = [];
         $scope.numberOfRape = [];
@@ -64,10 +64,11 @@ center: [
                     console.log($scope.currentPrice);
                 }
 
-                //console.log(response.data);
+                console.log(response.data);
 
 
 
+            });
 
                 $http
                     .get("https://sos1617-sep-mjtr.herokuapp.com//api/v1/rape-stats?apikey=septiembre")
@@ -131,6 +132,5 @@ center: [
 
                     });
 
-            });
 
     }]);
