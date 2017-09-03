@@ -32,21 +32,29 @@ center: [
 
         $scope.data2 = {};
         var data2 = {};
+        var proweb = {
 
+            method: 'GET',
+            url: "https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons?f=json&pretty=true",
+            headers: {
+                "Accept": "application/json"
+            }
 
-        $http
-            .get("https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons?f=json&pretty=true")
+        };
+
+        $http(proweb)
+            //.get("https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons?f=json&pretty=true")
             .then(function(response) {
-                
+
                 console.log("Datos mashup cogidos correctamente");
                 data2 = response.data;
                 $scope.data2 = data2.parameters;
 
-    
-                    $scope.value.push($scope.data2.defaultValue[0].spatialReference);
-                    console.log($scope.value);
-                    
-                    $scope.value.push(Number($scope.data2.defaultValue[1].spatialReference));
+
+                $scope.value.push($scope.data2.defaultValue[0].spatialReference);
+                console.log($scope.value);
+
+                $scope.value.push(Number($scope.data2.defaultValue[1].spatialReference));
 
 
                 console.log(response.data);
