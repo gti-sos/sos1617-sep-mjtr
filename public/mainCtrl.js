@@ -52,9 +52,9 @@ angular.module("mainCtrl",["ngRoute"]).config(function($routeProvider){
         controller : "mashupCtrl"
         
         
-    }).when("/proweb",{
-        templateUrl : "/analytics/rape-stats/proweb.html",
-        controller : "prowebCtrl"
+    }).when("/programweb",{
+        templateUrl : "/analytics/rape-stats/program.html",
+        controller : "programCtrl"
     });
 
      console.log("APP INIT");
