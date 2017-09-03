@@ -42,7 +42,6 @@ center: [
             method: 'GET',
             url: "cloud.docker.com",
             headers: {
-                "Host": "cloud.docker.com",
                 "Authorization": "Basic dXNlcm5hbWU6YXBpa2V5",
                 "Accept": "application / json"
             }
