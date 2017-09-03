@@ -38,7 +38,7 @@ center: [
         var data2 = {};
 
         $http
-            .get("hhttps://svcs.ebay.com/services/search/FindingService/v1?SECURITY-APPNAME=ManuTorr-sos16107-PRD-491ebc5cc-06d6834d&OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&RESPONSE-DATA-FORMAT=JSON&callback=_cb_findItemsByKeywords&REST-PAYLOAD&keywords=smartphone&paginationInput.entriesPerPage=6&GLOBAL-ID=EBAY-ES&siteid=186")
+            .get("https://svcs.ebay.com/services/search/FindingService/v1?SECURITY-APPNAME=ManuTorr-sos16107-PRD-491ebc5cc-06d6834d&OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&RESPONSE-DATA-FORMAT=JSON&callback=_cb_findItemsByKeywords&REST-PAYLOAD&keywords=smartphone&paginationInput.entriesPerPage=6&GLOBAL-ID=EBAY-ES&siteid=186")
             .then(function(response) {
                 console.log("Datos mashup cogidos correctamente");
                 data2 = response.data;
