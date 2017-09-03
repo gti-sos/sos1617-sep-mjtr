@@ -27,44 +27,30 @@ center: [
 41.387161
 ],
 },*/
-        $scope.findItemsByKeywordsResponse = [];
         $scope.value = [];
-        $scope.searchResult = [];
-        $scope.title = [];
-        $scope.currentPrice = [];
 
 
         $scope.data2 = {};
         var data2 = {};
 
-        var proweb = {
-            method: 'GET',
-            url: "cloud.docker.com/api/infra/v1/provider/digitalocean/",
-            headers: {
-                "Authorization": "Basic dXNlcm5hbWU6YXBpa2V5",
-                "Accept": "application / json"
-            }
 
-        };
-
-
-        $http(proweb)
-            //.get("https://svcs.ebay.com/services/search/FindingService/v1?SECURITY-APPNAME=ManuTorr-sos16107-PRD-491ebc5cc-06d6834d&OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&RESPONSE-DATA-FORMAT=JSON&callback=_cb_findItemsByKeywords&REST-PAYLOAD&keywords=Smartphones&paginationInput.entriesPerPage=6&GLOBAL-ID=EBAY-ES&siteid=186")
+        $http
+            .get("https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons?f=json&pretty=true")
             .then(function(response) {
+                
                 console.log("Datos mashup cogidos correctamente");
                 data2 = response.data;
-                $scope.data2 = data2.findItemsByKeywordsResponse.searchResult.item;
+                $scope.data2 = data2.parameters;
 
-                for (var i = 0; i < 6; i++) {
-                    $scope.title.push($scope.data2[i].title);
-                    console.log($scope.title);
+    
+                    $scope.value.push($scope.data2.defaultValue[0].spatialReference);
+                    console.log($scope.value);
+                    
+                    $scope.value.push(Number($scope.data2.defaultValue[1].spatialReference));
 
-                    $scope.currentPrice.push(Number($scope.data2[i].sellingStatus.currentPrice[1]));
-                    console.log($scope.currentPrice);
-                }
 
                 console.log(response.data);
-/*
+
 
 
                 $http
@@ -119,7 +105,7 @@ center: [
 
                             series: [{
                                 name: 'SmartPhones price',
-                                data: $scope.currentPrice
+                                data: $scope.value
                             }, {
                                 name: 'Rape Number Of Rapes',
                                 data: $scope.numberOfRape
@@ -128,7 +114,7 @@ center: [
                         });
 
                     });
-*/
+
 
             });
 

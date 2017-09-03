@@ -62,7 +62,7 @@ angular
                 });     
                  
                 $http
-            .get("https://sos1617-sep-mjtr.herokuapp.com//api/v1/rape-stats?apikey=septiembre")
+            .get("https://sos1617-sep-mjtr.herokuapp.com/api/v1/rape-stats?apikey=septiembre")
             .then(function(response) {
 
                 data = response.data;
