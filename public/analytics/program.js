@@ -64,7 +64,7 @@ center: [
                 }
 
                 console.log(response.data);
-
+/*
 
 
                 $http
@@ -128,7 +128,7 @@ center: [
                         });
 
                     });
-
+*/
 
             });
 
