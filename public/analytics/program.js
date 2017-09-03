@@ -45,9 +45,9 @@ center: [
                 "Accept": "application/json",
                 "Content-Type": "application/x-www-form-urlencoded",
                 "Authorization": "Basic <B64-encoded-oauth-credentials>",
-                "App ID (Client ID)": "ManuTorr-sos16107-SBX-08e2d25a0-16c2b8e4",
-                "Dev ID": "15eddb4f-5008-4f2a-9c69-e8517abe3429",
-                "Cert ID (Client Secret)": "SBX-8e2d25a0d7a1-a65a-43f3-b531-15f4"
+                "AppID(Client ID)": "ManuTorr-sos16107-SBX-08e2d25a0-16c2b8e4",
+                "DevID": "15eddb4f-5008-4f2a-9c69-e8517abe3429",
+                "CertID(Client Secret)": "SBX-8e2d25a0d7a1-a65a-43f3-b531-15f4"
 
             },
             requestbody: {
