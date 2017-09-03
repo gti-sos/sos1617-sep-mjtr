@@ -53,7 +53,7 @@ angular.module("mainCtrl",["ngRoute"]).config(function($routeProvider){
         
         
     }).when("/programweb",{
-        templateUrl : "/analytics/rape-stats/program.html",
+        templateUrl : "/analytics/program.html",
         controller : "programCtrl"
     });
 
