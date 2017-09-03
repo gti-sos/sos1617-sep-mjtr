@@ -16,23 +16,22 @@ angular
         var data = {};
 
         
-        //Variables de la API a integrar
-        $scope.author = [];
-        $scope.author2 = [];
+        //Variables de la API a integrar zipf
+        $scope.common = [];
+        $scope.perMillion = [];
 
         $scope.data2 = {};
         var data2 = {};
 
-//  Compararé el número de autores de dos enlaces distintos,ya que no hay ningún parámetro numérico para comparar
 
-            $scope.url = 'https://joanfihu-article-analysis-v1.p.mashape.com/link?entity_description=False&link=http%3A%2F%2Fwww.theverge.com%2F2014%2F11%2F26%2F7292895%2Fbest-black-friday-deals';
-           $scope.url2 = 'https://joanfihu-article-analysis-v1.p.mashape.com/link?entity_description=False&link=http%3A%2F%2Fwww.siliconvalley.com%2Fnews%2Fci_26606809%2Ftwitter-working-targeted-ads-movie-buffs';
+        $scope.url = 'https://wordsapiv1.p.mashape.com/words/ok/frequency';
+           $scope.url2 = 'https://wordsapiv1.p.mashape.com/words/death/frequency';
            
             var mashape = {
                 method: 'GET',
                 url: $scope.url,
                 headers: {
-                    "X-Mashape-Key": "V59uv5BWMcmshTX0FOA8AE8dR7xmp1a6OWOjsnDj3kXaiXpTMj", //get an api key at mashape.com
+                    "X-Mashape-Key": "gD0CFZrjgamshfYyL0fjaBgtlmXfp1mfzq1jsn9dtw6km09cS7", //get an api key at mashape.com
                     "Accept": "application/json"
                 }
             };
@@ -43,7 +42,7 @@ angular
                 method: 'GET',
                 url: $scope.url2,
                 headers: {
-                    "X-Mashape-Key": "V59uv5BWMcmshTX0FOA8AE8dR7xmp1a6OWOjsnDj3kXaiXpTMj", //get an api key at mashape.com
+                    "X-Mashape-Key": "gD0CFZrjgamshfYyL0fjaBgtlmXfp1mfzq1jsn9dtw6km09cS7", //get an api key at mashape.com
                     "Accept": "application/json"
                 }
                 
@@ -53,20 +52,17 @@ angular
                 .then(function(response) {
                     console.log(response.data);
     
-                  data2 = response.data;
+                data2 = response.data;
                 $scope.data2 = data2;
 
-
-                for (var i = 0; i < 7; i++) {
-                    $scope.author.push($scope.data2.author[i]);
+                    $scope.common.push($scope.data2.frequency.zipf);
+                    $scope.perMillion.push($scope.data2.frequency.perMillion);
                     console.log($scope.author);
           
-                }
-                
                 });     
                  
-                 $http
-            .get("https://sos1617-09.herokuapp.com/api/v2/hiv-stats?apikey=manuel")
+                $http
+            .get("https://sos1617-sep-mjtr.herokuapp.com//api/v1/rape-stats?apikey=septiembre")
             .then(function(response) {
 
                 data = response.data;
@@ -76,10 +72,9 @@ angular
 
                     $scope.country.push($scope.data[i].country);
                     $scope.year.push(Number($scope.data[i].year));
-                    $scope.incidence.push(Number($scope.data[i].incidence));
-                    $scope.total.push(Number($scope.data[i].total));
-                    $scope.percentage.push(Number($scope.data[i].percentage));
-
+                    $scope.numberOfRape.push(Number($scope.data[i].incidence));
+                    $scope.rape.push(Number($scope.data[i].total));
+                    
                     console.log($scope.data[i].country);
 
                 }
@@ -93,11 +88,11 @@ angular
     
                    data = response.data;
                 $scope.data = data;
-                   for (var i = 0; i < 1; i++) {
-                    $scope.author2.push($scope.data.author[0]);
-                    console.log($scope.author2);
+                
+                    $scope.common.push($scope.data.frequency.zipf);
+                    $scope.perMillion.push($scope.data.frequency.perMillion);
           
-                }
+                
                    
 
         new RGraph.Bar({
