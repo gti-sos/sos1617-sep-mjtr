@@ -9,8 +9,9 @@ var app = express();
 var port = (process.env.PORT || 16778);
 
 app.use(bodyParser.json());
-app.use(cors());
 app.use(helmet());
+
+app.use(cors());
 
 
 app.use("/", express.static(path.join(__dirname, "public")));

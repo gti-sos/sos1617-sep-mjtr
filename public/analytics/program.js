@@ -15,65 +15,48 @@ angular
         $scope.data = {};
         var data = {};
 
-        //Variables de la API a integrar
-        /*   properties: {
-address: "1 Earhart Dr",
-category: "airport",
-tel: "(610) 383-6057",
-landmark: true,
-maki: "airport"
-center: [
--72.508049,
-41.387161
-],
-},*/
+
         $scope.value = [];
 
-
+        var totalSpatialReference = 0;
         $scope.data2 = {};
         var data2 = {};
-        var proweb = {
+        var totalNumberOfRape = 0;
 
-            method: 'GET',
-            url: "https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons?f=json&pretty=true",
-            headers: {
-                "Accept": "application/json"
-            }
 
-        };
 
-        $http(proweb)
-            //.get("https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons?f=json&pretty=true")
+        $http
+            .get("https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons?f=json&pretty=true")
             .then(function(response) {
 
                 console.log("Datos mashup cogidos correctamente");
                 data2 = response.data;
                 $scope.data2 = data2.parameters;
 
-
-                $scope.value.push($scope.data2.defaultValue[0].spatialReference);
+                console.log($scope.data2);
+                $scope.value.push($scope.data2[0].defaultValue.spatialReference.wkid);
                 console.log($scope.value);
-
-                $scope.value.push(Number($scope.data2.defaultValue[1].spatialReference));
+                $scope.value.push(Number($scope.data2[2].defaultValue.spatialReference.wkid));
+                console.log($scope.value);
 
 
                 console.log(response.data);
 
-
+                totalSpatialReference = $scope.value[0] + $scope.value[1];
 
                 $http
-                    .get("https://sos1617-sep-mjtr.herokuapp.com//api/v1/rape-stats?apikey=septiembre")
+                    .get("https://sos1617-sep-mjtr.herokuapp.com/api/v1/rape-stats?apikey=septiembre")
                     .then(function(response) {
 
                         data = response.data;
                         $scope.data = data;
-
+                        console.log(data);
                         for (var i = 0; i < response.data.length; i++) {
 
                             $scope.country.push($scope.data[i].country);
                             $scope.year.push(Number($scope.data[i].year));
                             $scope.numberOfRape.push(Number($scope.data[i].numberOfRape));
-                            $scope.rate.push(Number($scope.data[i].rate));
+                            totalNumberOfRape = totalNumberOfRape + Number($scope.data[i].numberOfRape);
 
                             console.log($scope.data[i].country);
 
@@ -82,43 +65,42 @@ center: [
 
 
 
-                        Highcharts.chart('Rape&progweb', {
-
+                        Highcharts.chart('Rape&Ref', {
+                            chart: {
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false,
+                                type: 'pie'
+                            },
                             title: {
-                                text: 'Rape and Spain mobile price compare'
+                                text: 'Total Spatial Refence vs Total Number of Rape'
                             },
-
-                            subtitle: {
-                                text: ''
-                            },
-
-                            yAxis: {
-                                title: {
-                                    text: 'Number of data'
-                                }
-                            },
-                            legend: {
-                                layout: 'vertical',
-                                align: 'right',
-                                verticalAlign: 'middle'
+                            tooltip: {
+                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
                             },
                             plotOptions: {
-                                line: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
                                     dataLabels: {
                                         enabled: false
                                     },
-                                    enableMouseTracking: true
+                                    showInLegend: true
                                 }
                             },
-
                             series: [{
-                                name: 'SmartPhones price',
-                                data: $scope.value
-                            }, {
-                                name: 'Rape Number Of Rapes',
-                                data: $scope.numberOfRape
+                                name: 'Brands',
+                                colorByPoint: true,
+                                data: [{
+                                    name: 'Number of Rape',
+                                    y: totalNumberOfRape
+                                }, {
+                                    name: 'Total Spatial Reference',
+                                    y: totalSpatialReference,
+                                    sliced: true,
+                                    selected: true
+                                }]
                             }]
-
                         });
 
                     });
